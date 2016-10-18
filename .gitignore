@@ -1,0 +1,8 @@
+# Dependency directory
+node_modules
+bower_components
+
+# js files and map files from app directory
+
+app/*.js
+app/*.js.map
