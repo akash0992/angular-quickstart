@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormGroup, FormBuilder, Validators}   from '@angular/forms';
-import forEach = ts.forEach;
 
 @Component({
     selector: 'my-app',
@@ -79,7 +78,7 @@ import forEach = ts.forEach;
 </div>
     `
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     studentForm;
     disabled = false;
     submitted = false;
