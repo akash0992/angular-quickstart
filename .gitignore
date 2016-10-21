@@ -1,8 +1,8 @@
 # Dependency directory
 node_modules
 bower_components
-.idea
-.git
+.idea/
+.git/
 
 # js files and map files from app directory
 
