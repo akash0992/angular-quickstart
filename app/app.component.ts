@@ -10,7 +10,7 @@ import 'rxjs/add/operator/toPromise';
     <div class="container">
     <h1>List</h1>
     <div *ngIf="students.length">
-    <div *ngFor="let student of students ;let index = index;">
+    <div *ngFor="let student of students | orderby:'name' ;let index = index;">
     <span>{{student.email}} : | : {{student.name}} : | : {{index}}</span>
     </div>
     </div>
