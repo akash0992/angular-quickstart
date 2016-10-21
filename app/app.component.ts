@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators}   from '@angular/forms';
-import {HttpModule, Http, Headers}    from '@angular/http';
+import {Http, Headers}    from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-// import forEach = ts.forEach;
 
 @Component({
     selector: 'my-app',
