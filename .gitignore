@@ -9,3 +9,4 @@ src/
 
 app/*.js
 app/*.js.map
+*.log
