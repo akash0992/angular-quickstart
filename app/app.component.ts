@@ -8,7 +8,11 @@ import 'rxjs/add/operator/toPromise';
     selector: 'my-app',
     template: `
     <div class="container">
-    
+    {{students}}
+    <h1>List</h1>
+    <div >
+    <h1 *ngFor="let student of students">test</h1>
+    </div>
     <h1>Add Student Form</h1>
     <form [formGroup]="studentForm" (ngSubmit)="submitForm(studentForm.value)">
      <div class="form-group" [ngClass]="{'has-error':!name.valid && !name.pristine && submitted}">
@@ -107,7 +111,7 @@ export class AppComponent {
         this.studentForm = fb.group(formObj);
         this.getData();
         // this.deleteStudentData();
-        this.updateStudentData();
+        //this.updateStudentData();
     }
 
     submitForm(value:any):void {
@@ -137,8 +141,8 @@ export class AppComponent {
             .toPromise()
             .then(response => {
                 this.students = response._body;
-                console.log(response._body,"<<<<<<<")
-                return response.json().data;
+                console.log(this.students,"<<<<<<<")
+                //return response.json().data;
             })
             .catch(this.handleError);
     }
@@ -166,7 +170,7 @@ export class AppComponent {
             .catch(this.handleError);
     }
     /// delete data
-    id = '580a23d1660c54c61cd630ea';
+    id = '580a32f7660c54c61cd630eb';
     updateStudentData(): Promise<any[]> {
         let student = {
             name: "updatedName",
