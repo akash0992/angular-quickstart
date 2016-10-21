@@ -161,10 +161,7 @@ export class AppComponent implements OnInit{
         return this.http.get(this.studentsUrl, {headers: this.headers})
             .toPromise()
             .then(response => {
-                console.log(" >>>>>> ", response);
-
-                this.students = response && !!response._body && JSON.parse(response._body);
-                //return response.json().data;
+                this.students = response.json();
             })
             .catch(this.handleError);
     }
