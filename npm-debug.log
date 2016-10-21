@@ -1,5 +1,7 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
+1 verbose cli [ '/opt/node-v6.0.0-linux-x64/bin/node',
+1 verbose cli   '/opt/NODE/bin/npm',
+1 verbose cli   'start' ]
 2 info using npm@3.8.6
 3 info using node@v6.0.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
@@ -7,25 +9,25 @@
 6 silly lifecycle angular-quickstart@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle angular-quickstart@1.0.0~start: angular-quickstart@1.0.0
 8 verbose lifecycle angular-quickstart@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle angular-quickstart@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/ttnd/Downloads/angular-quickstart/node_modules/.bin:/usr/local/bin:/home/ttnd/.rbenv/plugins/ruby-build/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/usr/local/heroku/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/node/bin:/opt/mongodb/bin:/opt/WebStorm/bin:/opt/node/bin
-10 verbose lifecycle angular-quickstart@1.0.0~start: CWD: /home/ttnd/Downloads/angular-quickstart
+9 verbose lifecycle angular-quickstart@1.0.0~start: PATH: /opt/node-v6.0.0-linux-x64/lib/node_modules/npm/bin/node-gyp-bin:/home/ttnd/WebstormProjects/Angular 2 Intellimeet/angular-quickstart/node_modules/.bin:/opt/node-v6.0.0-linux-x64/bin:/home/ttnd/bin:/home/ttnd/.rbenv/plugins/ruby-build/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/home/ttnd/.rbenv/plugins/ruby-build/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/home/ttnd/.rbenv/plugins/ruby-build/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/home/ttnd/.linuxbrew/bin:/home/ttnd/.rbenv/plugins/ruby-build/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/home/ttnd/.rbenv/plugins/ruby-build/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/home/ttnd/.rbenv/plugins/ruby-build/bin:/home/ttnd/.rbenv/shims:/home/ttnd/.rbenv/bin:/home/ttnd/.linuxbrew/bin:/home/ttnd/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/WebStorm/bin:/usr/local/heroku/bin:/opt/MONGO_DB/bin:/opt/JAVA_HOME/bin:/opt/NODE/bin:/opt/WebStorm/bin:/usr/local/heroku/bin:/opt/MONGO_DB/bin:/opt/JAVA_HOME/bin:/opt/NODE/bin
+10 verbose lifecycle angular-quickstart@1.0.0~start: CWD: /home/ttnd/WebstormProjects/Angular 2 Intellimeet/angular-quickstart
 11 silly lifecycle angular-quickstart@1.0.0~start: Args: [ '-c', 'tsc && concurrently "npm run tsc:w" "npm run lite" ' ]
 12 silly lifecycle angular-quickstart@1.0.0~start: Returned: code: 2  signal: null
 13 info lifecycle angular-quickstart@1.0.0~start: Failed to exec start script
 14 verbose stack Error: angular-quickstart@1.0.0 start: `tsc && concurrently "npm run tsc:w" "npm run lite" `
 14 verbose stack Exit status 2
-14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:239:16)
+14 verbose stack     at EventEmitter.<anonymous> (/opt/node-v6.0.0-linux-x64/lib/node_modules/npm/lib/utils/lifecycle.js:239:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
-14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+14 verbose stack     at ChildProcess.<anonymous> (/opt/node-v6.0.0-linux-x64/lib/node_modules/npm/lib/utils/spawn.js:24:14)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
 14 verbose stack     at maybeClose (internal/child_process.js:850:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 15 verbose pkgid angular-quickstart@1.0.0
-16 verbose cwd /home/ttnd/Downloads/angular-quickstart
-17 error Linux 3.19.0-66-generic
-18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
+16 verbose cwd /home/ttnd/WebstormProjects/Angular 2 Intellimeet/angular-quickstart
+17 error Linux 4.4.0-45-generic
+18 error argv "/opt/node-v6.0.0-linux-x64/bin/node" "/opt/NODE/bin/npm" "start"
 19 error node v6.0.0
 20 error npm  v3.8.6
 21 error code ELIFECYCLE

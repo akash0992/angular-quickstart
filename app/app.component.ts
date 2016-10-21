@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup, FormBuilder, Validators}   from '@angular/forms';
-import { HttpModule,Http,Headers }    from '@angular/http';
+import {HttpModule, Http, Headers}    from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 // import forEach = ts.forEach;
 
@@ -8,10 +8,11 @@ import 'rxjs/add/operator/toPromise';
     selector: 'my-app',
     template: `
     <div class="container">
-    {{students}}
     <h1>List</h1>
-    <div >
-    <h1 *ngFor="let student of students">test</h1>
+    <div *ngIf="students.length">
+    <div *ngFor="let student of students ;let index = index;">
+    <span>{{student.email}} : | : {{student.name}} : | : {{index}}</span>
+    </div>
     </div>
     <h1>Add Student Form</h1>
     <form [formGroup]="studentForm" (ngSubmit)="submitForm(studentForm.value)">
@@ -86,7 +87,7 @@ import 'rxjs/add/operator/toPromise';
 </div>
     `
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
     studentForm;
     disabled = false;
     submitted = false;
@@ -95,31 +96,40 @@ export class AppComponent {
         {label: "Python", name: "python"},
         {label: "Ruby", name: "ruby"}
     ];
-
+    students:any = [];
+    
     form:FormGroup;
 
-    constructor(fb: FormBuilder,private http: Http) {
+    constructor(private fb:FormBuilder, private http:Http) {
         let formObj = {
             'email': [null, Validators.compose([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])],
             'name': [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(10)])],
             'gender': [null, Validators.required],
             'course': ['', Validators.required],
         };
-        this.subjects.forEach((subject)=>{
-             formObj[subject.name] = false;
+        this.subjects.forEach((subject)=> {
+            formObj[subject.name] = false;
         });
         this.studentForm = fb.group(formObj);
-        this.getData();
         // this.deleteStudentData();
         //this.updateStudentData();
     }
+
+    /**
+     * ngOnInit function
+     */
+
+    ngOnInit() {
+        this.getData();
+    }
+
 
     submitForm(value:any):void {
         if (this.studentForm.dirty && this.studentForm.valid) {
             this.disabled = true;
             let student = {
-                name:value.name,
-                email:value.email,
+                name: value.name,
+                email: value.email,
             };
             this.postStudentData(student);
             console.log('Reactive Form Data:')
@@ -130,18 +140,20 @@ export class AppComponent {
         }
 
     }
+
     private headers = new Headers({'Content-Type': 'application/json'});
     // private studentsUrl = 'http://localhost:3000/users';  // URL to web api
     private studentsUrl = 'http://localhost:9000/api/students/';  // URL to web api
 
-    // get data
-    students = [];
+    
+
     getStudentData() {
-        return this.http.get(this.studentsUrl,{headers: this.headers})
+        return this.http.get(this.studentsUrl, {headers: this.headers})
             .toPromise()
             .then(response => {
-                this.students = response._body;
-                console.log(this.students,"<<<<<<<")
+                console.log(" >>>>>> ", response);
+
+                this.students = response && !!response._body && JSON.parse(response._body);
                 //return response.json().data;
             })
             .catch(this.handleError);
@@ -149,9 +161,10 @@ export class AppComponent {
     getData(){
         this.getStudentData();
     }
+
     /// post data
 
-    postStudentData(student): Promise<any[]> {
+    postStudentData(student):Promise<any[]> {
         return this.http
             .post(this.studentsUrl, JSON.stringify(student), {headers: this.headers})
             .toPromise()
@@ -162,30 +175,32 @@ export class AppComponent {
 
     /// delete data
     id = '580a1895d2287e90143907a3';
-    deleteStudentData(): Promise<any[]> {
+
+    deleteStudentData():Promise<any[]> {
         return this.http
-            .delete(this.studentsUrl + this.id,{headers: this.headers})
-            .toPromise()
-            .then(res => res.json().data)
-            .catch(this.handleError);
-    }
-    /// delete data
-    id = '580a32f7660c54c61cd630eb';
-    updateStudentData(): Promise<any[]> {
-        let student = {
-            name: "updatedName",
-            email: "updatedEmail@gmail.com",
-            course: "MCA",
-            gender: "male",
-            subjets: ["ruby","python"],
-        }
-        return this.http
-            .put(this.studentsUrl + this.id,student,{headers: this.headers})
+            .delete(this.studentsUrl + this.id, {headers: this.headers})
             .toPromise()
             .then(res => res.json().data)
             .catch(this.handleError);
     }
 
+    /// delete data
+
+    updateStudentData():Promise<any[]> {
+        this.id = '580a32f7660c54c61cd630eb';
+        let student = {
+            name: "updatedName",
+            email: "updatedEmail@gmail.com",
+            course: "MCA",
+            gender: "male",
+            subjets: ["ruby", "python"],
+        }
+        return this.http
+            .put(this.studentsUrl + this.id, student, {headers: this.headers})
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
 
 
     private handleError(error:any) {
