@@ -1,12 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup, FormBuilder, Validators}   from '@angular/forms';
-import forEach = ts.forEach;
+import { HttpModule,Http,Headers }    from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+// import forEach = ts.forEach;
 
 @Component({
     selector: 'my-app',
     template: `
     <div class="container">
-    <h1>Add Student Form</h1>{{student | json}}
+    
+    <h1>Add Student Form</h1>
     <form [formGroup]="studentForm" (ngSubmit)="submitForm(studentForm.value)">
      <div class="form-group" [ngClass]="{'has-error':!name.valid && !name.pristine && submitted}">
         <label>Name:</label>
@@ -79,7 +82,7 @@ import forEach = ts.forEach;
 </div>
     `
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     studentForm;
     disabled = false;
     submitted = false;
@@ -91,7 +94,7 @@ export class AppComponent implements OnInit {
 
     form:FormGroup;
 
-    constructor(fb: FormBuilder) {
+    constructor(fb: FormBuilder,private http: Http) {
         let formObj = {
             'email': [null, Validators.compose([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])],
             'name': [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(10)])],
@@ -101,12 +104,20 @@ export class AppComponent implements OnInit {
         this.subjects.forEach((subject)=>{
              formObj[subject.name] = false;
         });
-        this.studentForm = fb.group(formObj)
+        this.studentForm = fb.group(formObj);
+        this.getData();
+        // this.deleteStudentData();
+        this.updateStudentData();
     }
 
     submitForm(value:any):void {
         if (this.studentForm.dirty && this.studentForm.valid) {
             this.disabled = true;
+            let student = {
+                name:value.name,
+                email:value.email,
+            };
+            this.postStudentData(student);
             console.log('Reactive Form Data:')
             console.log(value);
         } else {
@@ -115,4 +126,69 @@ export class AppComponent implements OnInit {
         }
 
     }
+    private headers = new Headers({'Content-Type': 'application/json'});
+    // private studentsUrl = 'http://localhost:3000/users';  // URL to web api
+    private studentsUrl = 'http://localhost:9000/api/students/';  // URL to web api
+
+    // get data
+    students = [];
+    getStudentData() {
+        return this.http.get(this.studentsUrl,{headers: this.headers})
+            .toPromise()
+            .then(response => {
+                this.students = response._body;
+                console.log(response._body,"<<<<<<<")
+                return response.json().data;
+            })
+            .catch(this.handleError);
+    }
+    getData(){
+        this.getStudentData();
+    }
+    /// post data
+
+    postStudentData(student): Promise<any[]> {
+        return this.http
+            .post(this.studentsUrl, JSON.stringify(student), {headers: this.headers})
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
+
+
+    /// delete data
+    id = '580a1895d2287e90143907a3';
+    deleteStudentData(): Promise<any[]> {
+        return this.http
+            .delete(this.studentsUrl + this.id,{headers: this.headers})
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
+    /// delete data
+    id = '580a23d1660c54c61cd630ea';
+    updateStudentData(): Promise<any[]> {
+        let student = {
+            name: "updatedName",
+            email: "updatedEmail@gmail.com",
+            course: "MCA",
+            gender: "male",
+            subjets: ["ruby","python"],
+        }
+        return this.http
+            .put(this.studentsUrl + this.id,student,{headers: this.headers})
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
+
+
+
+    private handleError(error:any) {
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg); // log to console instead
+        return Promise.reject(errMsg);
+    }
+
 }
