@@ -117,9 +117,16 @@ export class AppComponent {
     submitForm(value:any):void {
         if (this.studentForm.dirty && this.studentForm.valid) {
             this.disabled = true;
+            let subjects = [];
+            value.ruby && subjects.push('ruby');
+            value.cpp && subjects.push('cpp');
+            value.python && subjects.push('python');
             let student = {
                 name:value.name,
                 email:value.email,
+                gender: value.gender,
+                course: value.course,
+                subjects: subjects
             };
             this.postStudentData(student);
             console.log('Reactive Form Data:')
@@ -132,7 +139,7 @@ export class AppComponent {
     }
     private headers = new Headers({'Content-Type': 'application/json'});
     // private studentsUrl = 'http://localhost:3000/users';  // URL to web api
-    private studentsUrl = 'http://localhost:9000/api/students/';  // URL to web api
+    private studentsUrl = 'http://localhost:8080/api/students/';  // URL to web api
 
     // get data
     students = [];
@@ -140,7 +147,7 @@ export class AppComponent {
         return this.http.get(this.studentsUrl,{headers: this.headers})
             .toPromise()
             .then(response => {
-                this.students = response._body;
+                //this.students =  response &&  response._body;
                 console.log(this.students,"<<<<<<<")
                 //return response.json().data;
             })
@@ -152,6 +159,19 @@ export class AppComponent {
     /// post data
 
     postStudentData(student): Promise<any[]> {
+        let subjects = [];
+        student.ruby && subjects.push('ruby');
+        student.cpp && subjects.push('cpp');
+        student.python && subjects.push('python');
+        console.log(student,subjects);
+
+        let obj = {
+            name: student.name,
+            email: student.email,
+            gender: student.gender,
+            course: student.course,
+            subjects: subjects
+        }
         return this.http
             .post(this.studentsUrl, JSON.stringify(student), {headers: this.headers})
             .toPromise()
@@ -170,7 +190,7 @@ export class AppComponent {
             .catch(this.handleError);
     }
     /// delete data
-    id = '580a32f7660c54c61cd630eb';
+    //id = '580a32f7660c54c61cd630eb';
     updateStudentData(): Promise<any[]> {
         let student = {
             name: "updatedName",
