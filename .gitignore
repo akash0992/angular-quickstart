@@ -1,7 +1,7 @@
 # Dependency directory
 node_modules
 bower_components
-src
+src/
 .idea/
 .git/
 
