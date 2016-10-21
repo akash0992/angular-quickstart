@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators}   from '@angular/forms';
-import {HttpModule, Http, Headers}    from '@angular/http';
+import {Http, Headers}    from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-// import forEach = ts.forEach;
 
 @Component({
     selector: 'my-app',
@@ -165,7 +164,7 @@ export class AppComponent implements OnInit{
         return this.http
             .post(this.studentsUrl, JSON.stringify(student), {headers: this.headers})
             .toPromise()
-            .then(res => res.json().data)
+            .then(res => res.json())
             .catch(this.handleError);
     }
 
@@ -177,7 +176,7 @@ export class AppComponent implements OnInit{
         return this.http
             .delete(this.studentsUrl + this.id, {headers: this.headers})
             .toPromise()
-            .then(res => res.json().data)
+            .then(res => res.json())
             .catch(this.handleError);
     }
 

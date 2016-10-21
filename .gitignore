@@ -1,6 +1,7 @@
 # Dependency directory
 node_modules
 bower_components
+src
 .idea/
 .idea
 
@@ -8,3 +9,4 @@ bower_components
 
 app/*.js
 app/*.js.map
+*.log
