@@ -12,7 +12,8 @@ import 'rxjs/add/operator/toPromise';
     <div class="list-group">
         <div class="list-group-item" *ngFor="let student of students ;let index = index;">
             <span>{{student.name}} : | : {{student.email}} : | : {{student._id}}</span>
-            <a (click)="deleteStudentData(student._id)" href="#">X</a>
+            <a (click)="deleteStudentData(student._id)" href="#" class="trash">Edit</a>
+            <a (click)="deleteStudentData(student._id)" href="#" class="edit">X</a>
         </div>
     </div>
     </div>
@@ -127,6 +128,7 @@ export class AppComponent implements OnInit{
     }
 
 
+
     submitForm(value:any):void {
         if (this.studentForm.dirty && this.studentForm.valid) {
             this.disabled = true;
@@ -144,6 +146,7 @@ export class AppComponent implements OnInit{
             this.postStudentData(student);
             console.log('Reactive Form Data:')
             console.log(value);
+            this.studentForm.reset()
         } else {
             this.submitted = true;
             console.log('Validation error in Data:')
